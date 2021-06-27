@@ -1,9 +1,25 @@
 /* _-_-_- modules/DATA MENU -_-_-_ */
+.DataColumnContainer{
+    width: 15%;
+    height: 100vh;
+    background: $lightBlack;
+}
 .DataColumn{
-    background: $purpleLight;
     width: 240px;
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     transition: 1s;
+    padding: 4px,
+}
+.DragHeaderContainer{
+    background-color: black;
+    color: white;
+    &__Text{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3rem;
+        font-size: 1rem;
+    }
 }
