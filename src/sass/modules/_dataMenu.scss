@@ -3,6 +3,9 @@
     width: 15%;
     height: 100vh;
     background: $lightBlack;
+    &-box{
+        position: relative;
+    }
 }
 .DataColumn{
     width: 240px;
@@ -22,4 +25,5 @@
         height: 3rem;
         font-size: 1rem;
     }
+    
 }

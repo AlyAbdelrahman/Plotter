@@ -13,7 +13,7 @@ const DragDrop = ({ actionType,
         return (
             itemsList.map((item, index) => {
                 return (
-                    <>
+                    <div key={item.name}>
                         <Draggable key={item.name} draggableId={item.name} index={index}>
                             {(provided, snapshot) => {
                                 return (
@@ -26,11 +26,12 @@ const DragDrop = ({ actionType,
                                             userSelect: "none",
                                             padding: 16,
                                             margin: "0 0 8px 0",
-                                            height: "50px",
+                                            height: "2.9rem",
                                             backgroundColor: snapshot.isDragging
                                                 ? "#263B4A"
                                                 : "#456C86",
                                             color: "white",
+                                            borderRadius: snapshot.isDragging ? '1rem' : '0rem',
                                             ...provided.draggableProps.style,
                                             ...cutsomStyle
                                         }}
@@ -40,7 +41,7 @@ const DragDrop = ({ actionType,
                                 );
                             }}
                         </Draggable>
-                    </>
+                    </div>
                 )
             })
         )

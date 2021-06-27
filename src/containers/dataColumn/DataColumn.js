@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import plotDataService from '../../services/mainDataColumn-service';
 import DragDrop from '../../components/dragDrop/DragDrop';
 import DataAxes from '../dataAxes/DataAxes';
 import { groupBy } from 'lodash'
 
-const DataColumn = () => {
+const DataColumn = ({axesContainerRef}) => {
     const [columnData, setcolumnData] = useState([])
     useEffect(() => {
         plotDataService.getCoulmnData().then(data => setcolumnData(groupBy(data, 'function')))
@@ -13,10 +14,10 @@ const DataColumn = () => {
     return (
         <div className="DataColumnContainer">
             {Object.entries(columnData).map((dataList) => {
-                console.log('>>DragDrop', dataList[1])
+                
                 return (
-                    <>
-                        <DragDropContext onDragEnd={data => console.log(data)}>
+                    <div key={dataList[0]} className="DataColumnContainer-box">
+                        <DragDropContext onDragEnd={data => console.log(data)} >
                             <div className="DragHeaderContainer">
                                 <h6 className="DragHeaderContainer__Text">
                                     {dataList[0]}
@@ -26,9 +27,10 @@ const DataColumn = () => {
                                 <DragDrop actionType='Dragable' itemsList={dataList[1]} customClass="" />
                             </DragDrop>
 
-                        <DataAxes header={dataList[0]} />
+                        
+                        {ReactDOM.createPortal(<DataAxes header={dataList[0]} />, axesContainerRef.current)}
                         </DragDropContext>
-                    </>
+                    </div>
                 )
             })}
         </div>
