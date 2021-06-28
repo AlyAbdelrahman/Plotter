@@ -37,6 +37,8 @@ const DragDrop = ({ actionType,
                                         }}
                                     >
                                         {item.name}
+                            {provided.placeholder}
+
                                     </div>
                                 );
                             }}
@@ -62,7 +64,7 @@ const DragDrop = ({ actionType,
                             }}
                             className={customClass}
                         >
-                            {children || ''}
+                            {children}
 
                             {provided.placeholder}
                         </div>

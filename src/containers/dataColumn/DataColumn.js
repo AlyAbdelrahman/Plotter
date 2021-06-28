@@ -1,39 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import plotDataService from '../../services/mainDataColumn-service';
 import DragDrop from '../../components/dragDrop/DragDrop/DragDrop';
 import DataAxes from '../dataAxes/DataAxes';
 import { groupBy } from 'lodash'
 
-const DataColumn = ({axesContainerRef}) => {
-    const [columnData, setcolumnData] = useState([]);
-    const [AxesData, setAxesData] = useState([]);
-    useEffect(() => {
-        plotDataService.getCoulmnData().then(data => setcolumnData(groupBy(data, 'function')))
-    }, [])
 
-    const handleOnDragEnd = (result) =>{
-        if (!result.destination) return;
-        console.log('>>here')
-        const { source, destination } = result;
-        const selectedItem = columnData[source.droppableId][source.index];
-        const copiedAxesData = [...AxesData];
-        // console.log('>>copiedAxesData',copiedAxesData)
-        const newAxesData = [...copiedAxesData,selectedItem];
-        const filterAxesData = [...new Set(newAxesData)];
-        console.log('>>filterAxesData',filterAxesData)
-        // console.log(selectedItem)
-        // if (source.droppableId !== destination.droppableId) {
-            setAxesData(filterAxesData)
-            // console.log('>>source',source)
-            // console.log('>>destination',destination)
-        // }
+const DataColumn = ({ axesContainerRef, AxesData, columnData, setAxesData, setcolumnData, orginalColumnDataList }) => {
+
+    const getsourceListName = (source) => {
+        if (source === 'dimensionContainer') return 'dimension'
+        if (source === 'measureContainer') return 'measure'
+        return '';
     }
+    const getDroppedFieldData = (destinationField) => {
+        return AxesData.find(item => item.function === destinationField)
+    }
+    const handleOnDragEnd = useCallback((result) => {
+        const { source, destination } = result;
+        if (!result.destination || (destination.droppableId === source.droppableId)) return;
+        const DroppedFieldData = getDroppedFieldData(destination.droppableId)
+        const sourceListName = getsourceListName(source.droppableId);
+        const copyiedData = { ...columnData }
+        const copiedAxesData = [...AxesData];
+        const copiedColumnDataObjectItems = copyiedData[sourceListName];
+        const selectedItem = columnData[sourceListName][source.index];
+
+        if (DroppedFieldData) {
+            copiedColumnDataObjectItems.splice(source.index, 1, DroppedFieldData);
+            const filteredAxesData = AxesData.filter((AixsData) => AixsData.name !== DroppedFieldData.name)
+            const newAxesData = [...filteredAxesData, selectedItem];
+            const filterAxesData = [...new Set(newAxesData)];
+            setcolumnData(copyiedData);
+            setAxesData(filterAxesData);
+        } else {
+            copiedColumnDataObjectItems.splice(source.index, 1);
+            const newAxesData = [...copiedAxesData, selectedItem];
+            const filterAxesData = [...new Set(newAxesData)];
+            setcolumnData(copyiedData);
+            setAxesData(filterAxesData);
+        }
+    }, [columnData, AxesData]);
     const getMatchedAxesData = (listName) => {
-        console.log('>>object',AxesData);
-        console.log('>>axesData',listName)
-        return AxesData.find((axesData)=>axesData.function === listName)
+        return AxesData.find((axesData) => axesData.function === listName) // can be map in the future incase of muilt axes
+    }
+    const handleDeleteMeasure = (DeletedItem) => {
+        const groupedOrginalDataColumn = groupBy(orginalColumnDataList, 'function');
+        const getDeletedItemOrginalList = groupedOrginalDataColumn[DeletedItem.function];
+        const measureName = DeletedItem.function;
+        const orginalColumnDataLists = { ...columnData, [measureName]: getDeletedItemOrginalList };
+        const newAxesData = [...AxesData]
+        const filteredAxesData = newAxesData.filter((AixsData) => AixsData.name !== DeletedItem.name)
+        setcolumnData(orginalColumnDataLists); // reset and sort with the orginal order
+        setAxesData(filteredAxesData);
     }
     return (
         <div className="DataColumnContainer">
@@ -47,12 +66,10 @@ const DataColumn = ({axesContainerRef}) => {
                                     {listName}
                                 </h6>
                             </div>
-                            <DragDrop actionType='Droppable' droppableId={listName}>
-                                <DragDrop actionType='Dragable' itemsList={dataList[1]} customClass="" />
+                            <DragDrop actionType='Droppable' droppableId={`${listName}Container`}>
+                                <DragDrop actionType='Dragable' itemsList={dataList[1]} />
                             </DragDrop>
-
-                        
-                        {ReactDOM.createPortal(<DataAxes header={listName} AxesData={getMatchedAxesData(listName)}/>, axesContainerRef.current)}
+                            {ReactDOM.createPortal(<DataAxes header={listName} AxesData={getMatchedAxesData(listName)} handleDeleteMeasure={handleDeleteMeasure} />, axesContainerRef.current)}
                         </DragDropContext>
                     </div>
                 )

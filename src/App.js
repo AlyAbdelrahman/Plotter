@@ -3,9 +3,9 @@ import ChartMaker from './containers/chartMaker/ChartMaker';
 
 function App() {
   return (
-    <div className="App">
-     <ChartMaker/>
-    </div>
+      <div className="App">
+        <ChartMaker />
+      </div>
   );
 }
 
