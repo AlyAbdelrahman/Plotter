@@ -1,8 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import testUtils from './utils/testUtils';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+describe("rendering Main component",()=>{
+  
+  test('render App component without errors', () => {
+    const wrapper = testUtils.setup();
+    const appComponent = testUtils.findByTestAttr(wrapper,'component-app');
+    expect(appComponent.length).toBe(1);
+  });
+  test('render App component ChartMaker without errors', () => {
+    const wrapper = testUtils.setup();
+    const appComponent = testUtils.findByTestAttr(wrapper,'component-chart-maker');
+    expect(appComponent.length).toBe(1);
+  });
+})

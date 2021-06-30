@@ -7,6 +7,7 @@ function handleResponse(response){
             })
             .then(({message}) => {
                 // Got valid JSON with error response, use it
+                console.log('>>message',message)
                 throw new Error(message || response.status);
             });
     }

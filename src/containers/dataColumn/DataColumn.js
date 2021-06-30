@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 import DragDrop from '../../components/dragDrop/DragDrop/DragDrop';
 import DataAxes from '../dataAxes/DataAxes';
 import { groupBy } from 'lodash'

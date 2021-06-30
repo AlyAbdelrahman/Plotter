@@ -13,7 +13,7 @@ const DragDrop = ({ actionType,
         return (
             itemsList.map((item, index) => {
                 return (
-                    <div key={item.name}>
+                    <div key={item.name} data-test='dragable-item'>
                         <Draggable key={item.name} draggableId={item.name} index={index}>
                             {(provided, snapshot) => {
                                 return (
@@ -50,19 +50,17 @@ const DragDrop = ({ actionType,
     }
     if (actionType === 'Droppable') {
         return (
-            <Droppable droppableId={droppableId} key={droppableId}>
+            <Droppable droppableId={droppableId} key={droppableId} data-test='droppable-item'>
                 {(provided, snapshot) => {
                     return (
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                             style={{
-                                // background: snapshot.isDraggingOver
-                                //     ? "#2c293f"
-                                //     : "#2c293f",
                                 ...cutsomStyle
                             }}
                             className={customClass}
+                            
                         >
                             {children}
 

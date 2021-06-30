@@ -12,8 +12,18 @@ function getCoulmnData() {
     .then(utils.handleResponse);
 }
 
-
+function getChartData(chartAxesObj) {
+    const requestOptions = {
+        method: 'POST',
+        headers: authHeader(),
+        body: JSON.stringify(chartAxesObj)
+    }
+    const url = `${process.env.REACT_APP_API_URL}/data`;
+    return fetch(url, requestOptions)
+    .then(utils.handleResponse);
+}
 const plotDataService = {
-    getCoulmnData
+    getCoulmnData,
+    getChartData
 }
 export default plotDataService;
