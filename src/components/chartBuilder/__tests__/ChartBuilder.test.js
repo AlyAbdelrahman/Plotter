@@ -32,7 +32,8 @@ describe("rendering Chart Builder components", () => {
                     351.76
                 ]
             }
-        ]
+        ],
+        propsLoadingChart: false
     }
     it("must render a chart empty alert before any data loaded", () => {
         wrapper = shallow(<ChartBuilder {...initialProps}/>);

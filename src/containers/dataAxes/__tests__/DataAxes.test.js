@@ -7,7 +7,7 @@ let wrapper;
 let initialProps;
 
 
-describe("rendering Chart Builder components", () => {
+describe("rendering Data Axes component", () => {
     initialProps = {
         header: 'Cost',
         AxesData: {
