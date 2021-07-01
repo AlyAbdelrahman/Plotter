@@ -78,7 +78,7 @@ const ChartBuilder = ({ data, propsChardBuilderData, propsLoadingChart }) => {
         return Object.entries(chardBuilderData).length > 1 && !loadingChart ? <Line data={chardBuilderData} options={options} data-test='data-chart'  /> : <p className="chartLoadingData-container" data-test='chart-loading-Alert'>loading chart</p>
     }, [chardBuilderData,loadingChart])
     return (
-        <div>
+        <div className="chart-box">
             {chart}
         </div>
     )
