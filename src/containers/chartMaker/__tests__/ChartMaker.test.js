@@ -16,9 +16,6 @@ afterEach(() => {
 
 describe("rendering Chart Maker components", () => {
     
-    it("must render a chart empty alert before any api call success", () => {
-        expect(testUtils.findByTestAttr(wrapper, 'chart-Empty-Alert').exists()).toBeTruthy();
-    });
     it("must render a data column", () => {
         expect(testUtils.findByTestAttr(wrapper, 'Data-column').exists()).toBeTruthy();
     });
@@ -48,14 +45,14 @@ describe("rendering Chart Maker components", () => {
                     ]
                 }
             ],
-            AxesData:[
+            axesData:[
                 {
-                    "name": "Product",
-                    "function": "dimension"
+                    name: "Product",
+                    function: "dimension"
                 },
                 {
-                    "name": "Year",
-                    "function": "dimension"
+                    name: "Year",
+                    function: "dimension"
                 },
             ]
         }

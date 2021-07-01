@@ -37,7 +37,7 @@ describe("rendering Chart Builder components", () => {
     }
     it("must render a chart empty alert before any data loaded", () => {
         wrapper = shallow(<ChartBuilder {...initialProps}/>);
-        expect(testUtils.findByTestAttr(wrapper, 'chart-Empty-Alert').exists()).toBeTruthy();
+        expect(testUtils.findByTestAttr(wrapper, 'chart-loading-Alert').exists()).toBeTruthy();
     });
     it("must render a chart when data loaded", () => {
         

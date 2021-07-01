@@ -1,6 +1,7 @@
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PropTypes, { any } from 'prop-types';
+import {DRAGABLE, DROPPABLE} from '../../../utils/constants'
 
 /**
  * DragDrop component which is a shared wrapper component to the drag and drop library  
@@ -20,7 +21,7 @@ const DragDrop = ({ actionType,
     children,
     customClass,
 }) => {
-    if (actionType === 'Dragable') {
+    if (actionType === DRAGABLE) {
         return (
             itemsList.map((item, index) => {
                 return (
@@ -59,7 +60,7 @@ const DragDrop = ({ actionType,
             })
         )
     }
-    if (actionType === 'Droppable') {
+    if (actionType === DROPPABLE) {
         return (
             <Droppable droppableId={droppableId} key={droppableId} data-test='droppable-item'>
                 {(provided, snapshot) => {

@@ -75,7 +75,7 @@ const ChartBuilder = ({ data, propsChardBuilderData, propsLoadingChart }) => {
         }
     }, [data])
     const chart = useMemo(() => {
-        return Object.entries(chardBuilderData).length > 1 && !loadingChart ? <Line data={chardBuilderData} options={options} data-test='data-chart'  /> : <p data-test='chart-Empty-Alert'>loading chart</p>
+        return Object.entries(chardBuilderData).length > 1 && !loadingChart ? <Line data={chardBuilderData} options={options} data-test='data-chart'  /> : <p className="chartLoadingData-container" data-test='chart-loading-Alert'>loading chart</p>
     }, [chardBuilderData,loadingChart])
     return (
         <div>

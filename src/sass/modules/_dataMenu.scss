@@ -5,6 +5,10 @@
     background: $lightBlack;
     &-box{
         position: relative;
+    }&__Empty{
+        color: white;
+        display: flex;
+        justify-content: center;
     }
 }
 .DataColumn{

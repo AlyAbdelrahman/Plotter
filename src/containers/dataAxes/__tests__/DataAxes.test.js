@@ -10,7 +10,7 @@ let initialProps;
 describe("rendering Data Axes component", () => {
     initialProps = {
         header: 'Cost',
-        AxesData: {
+        axesData: {
             name: "Product",
             function: "dimension"
         },
